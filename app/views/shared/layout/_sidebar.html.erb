@@ -49,6 +49,9 @@
                 <%= link_to new_agenda_article_path(agenda), class: 'nav-link' do %>
                   <p>+ <%= I18n.t('views.messages.create_article') %></p>
                 <% end %>
+                <%= link_to agenda, method: :delete, data: { confirm: 'Are you destory?' } , class: 'nav-link' do %>
+                  <p>---- <%= I18n.t('views.messages.destroy_agenda') %></p>
+                <% end %>
               </li>
             </ul>
           </li>
