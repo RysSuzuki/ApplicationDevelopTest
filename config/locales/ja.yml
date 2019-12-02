@@ -257,12 +257,17 @@ ja:
       destroy_infomation: '削除通知'
       destroy_agenda_mail: 'が削除されました'
       destroy_artcle_mail: '以下削除されました'
+      chenge_team_owner: 'リーダーが変更されました'
+      change_infomation: '権限移動通知'
+      change_owner_mail1: 'のリーダーが'
+      change_owner_mail2: 'に変更されました。'
     button:
       submit: '投稿'
       edit: '編集'
       delete: '削除'
       create: '作成'
       invite: '招待'
+      change: '権限移動'
     top:
       line1: 'このアプリケーションは、チームごと、議題ごとに別れて'
       line2: '特定のイシュー（議題）をメンバーで見やすく共有するためのアプリケーションです'

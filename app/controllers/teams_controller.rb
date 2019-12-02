@@ -30,12 +30,19 @@ class TeamsController < ApplicationController
   end
 
   def update
+    if params[:_method] == "put"
+      @user = User.find(params[:user_id])
+      @team.update(owner_id: @user.id)
+      ChangeOwnerMailer.changeowner_mail(@user,@team).deliver
+      redirect_to team_path, notice: I18n.t('views.messages.chenge_team_owner')
+    else
     if @team.update(team_params)
       redirect_to @team, notice: I18n.t('views.messages.update_team')
     else
       flash.now[:error] = I18n.t('views.messages.failed_to_save_team')
       render :edit
     end
+  end
   end
 
   def destroy
@@ -54,6 +61,8 @@ class TeamsController < ApplicationController
   end
 
   def team_params
-    params.fetch(:team, {}).permit %i[name icon icon_cache owner_id keep_team_id]
+    params.fetch(:team, {} ).permit %i[name icon icon_cache owner_id keep_team_id]
   end
+
+  
 end
