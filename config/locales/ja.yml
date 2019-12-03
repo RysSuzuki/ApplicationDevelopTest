@@ -261,6 +261,8 @@ ja:
       change_infomation: '権限移動通知'
       change_owner_mail1: 'のリーダーが'
       change_owner_mail2: 'に変更されました。'
+      not_owner: '編集権限がありません'
+      error: '失敗しました。やり直してください。'
     button:
       submit: '投稿'
       edit: '編集'

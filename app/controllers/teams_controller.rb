@@ -15,7 +15,9 @@ class TeamsController < ApplicationController
     @team = Team.new
   end
 
-  def edit; end
+  def edit
+    redirect_to team_path(@team.id) , notice: I18n.t('views.messages.not_owner') unless @team.owner_id == current_user.id
+  end
 
   def create
     @team = Team.new(team_params)
@@ -30,19 +32,21 @@ class TeamsController < ApplicationController
   end
 
   def update
-    if params[:_method] == "put"
+    if params[:_method] == "put" 
       @user = User.find(params[:user_id])
-      @team.update(owner_id: @user.id)
-      ChangeOwnerMailer.changeowner_mail(@user,@team).deliver
-      redirect_to team_path, notice: I18n.t('views.messages.chenge_team_owner')
+      if @team.owner_id == current_user.id
+        @team.update(owner_id: @user.id)
+        ChangeOwnerMailer.changeowner_mail(@user,@team).deliver
+        redirect_to team_path, notice: I18n.t('views.messages.chenge_team_owner')
+      end
     else
-    if @team.update(team_params)
-      redirect_to @team, notice: I18n.t('views.messages.update_team')
-    else
-      flash.now[:error] = I18n.t('views.messages.failed_to_save_team')
-      render :edit
+      if @team.update(team_params)
+        redirect_to @team, notice: I18n.t('views.messages.update_team')
+      else
+        flash.now[:error] = I18n.t('views.messages.failed_to_save_team')
+        render :edit
+      end
     end
-  end
   end
 
   def destroy
